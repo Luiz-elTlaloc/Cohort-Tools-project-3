@@ -11,6 +11,11 @@ var apiRouter = require('./routes/api')
 
 var app = express();
 
+app.get('/docs', (req, res, next) => {
+  console.log('Accessing Docs');
+  res.sendFile(path.join(__dirname, 'views', 'docs.html'));
+});
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -18,14 +23,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
-  cors({
-    origin: [process.env.REACT_APP_URI],
-  })
-);
+    cors({
+        origin: [process.env.REACT_APP_URI],
+    })
+    );
+    
+    app.use("/", indexRouter);
+    app.use("/users", usersRouter);
+    app.use('/auth', authRouter);
+    app.use('/api', apiRouter);
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use('/auth', authRouter);
-app.use('/api', apiRouter)
+    module.exports = app;
 
-module.exports = app;
