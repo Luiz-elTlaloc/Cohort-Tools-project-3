@@ -9,7 +9,28 @@ var usersRouter = require("./routes/users");
 var authRouter = require('./routes/auth')
 var apiRouter = require('./routes/api')
 
+const Cohort = require("./models/Cohort.model");
+const Student = require("./models/Student.model");
+
 var app = express();
+
+const mongoose = require("mongoose");
+
+ 
+
+mongoose //Verificar la instalacion y via de datos con la clase
+
+  .connect("mongodb://127.0.0.1:27017/cohort-tools-api")
+
+  .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
+
+  .catch(err => console.error("Error connecting to mongo", err));
+  
+
+
+
+//
+
 
 app.get('/docs', (req, res, next) => {
   console.log('Accessing Docs');
