@@ -94,7 +94,6 @@ router.post("/update/:studentId", (req, res, next) => {
   Student.findByIdAndUpdate(
     req.params.studentId,
     req.body,
-    {},
     {
       new: true,
     }
